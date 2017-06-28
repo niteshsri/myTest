@@ -12,23 +12,17 @@
 * @since     0.2.9
 * @license   http://www.opensource.org/licenses/mit-license.php MIT License
 */
-namespace App\Controller\Api\User;
+namespace App\Controller\MerchantApi;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Network\Request;
-use Cake\Network\Exception\BadRequestException;
-use Cake\Network\Exception\UnauthorizedException;
-use Cake\Network\Exception\ForbiddenException;
-use Cake\Network\Exception\NotFoundException;
-use Cake\Network\Exception\MethodNotAllowedException;
-use Cake\Network\Exception\ConflictException;
-use Cake\Cache\Cache;
+use Cake\Log\Log;
 use Cake\I18n\Time;
-use Cake\Utility\Security;
-use Firebase\JWT\JWT;
-use App\Controller\Api\ApiHelper;
-use Cake\Network\Exception\InternalErrorException;
+use Cake\Core\Configure;
+use Cake\Network\Exception\ForbiddenException;
+use AuditStash\Meta\RequestMetadata;
+use Cake\Event\EventManager;
 
 /**
 * Application Controller
@@ -40,28 +34,22 @@ use Cake\Network\Exception\InternalErrorException;
 */
 class ApiController extends Controller
 {
-  const BEARER_LABEL='bearer';
+  public function isAuthorized($user)
+  {
+      return false;
+  }
 
-  private $_errorVal = array();
-
+  /*
+  * Constant Defined for the admin levels and can be accessed in any controller
+  */
 
   //initialize auth
   public function initialize()
   {
     parent::initialize();
     $this->loadComponent('RequestHandler');
-    $this->loadComponent('Auth', [
-      'authorize'=> 'Controller',//added this line
-      'loginAction' => [
-        'controller' => 'Users',
-        'action' => 'login'
-      ],
-      'storage' => 'Session',
-      'unauthorizedRedirect' => $this->referer()
-    ]);
-
+    $this->loadComponent('Auth');
   }
-
   public function beforeFilter(Event $event)
   {
     $origin = $this->request->header('Origin');
@@ -93,8 +81,9 @@ class ApiController extends Controller
     ->maxAge(300)
     ->build();
   }
-public function isAuthorized($user)
-{
-  return false;
-}
+
+  public function beforeRender(Event $event)
+  {
+  }
+
 }

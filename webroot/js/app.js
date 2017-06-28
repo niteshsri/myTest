@@ -8,7 +8,7 @@
         var config = {
             layout: 'default-sidebar-1',
             background: 'light',
-            navbar: 'light',
+            navbar: 'dark',
             sidebar: 'dark',
             topNavigation: 'light',
             collapsed: false,

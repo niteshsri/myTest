@@ -42,7 +42,17 @@ use Cake\Routing\Route\DashedRoute;
  *
  */
 Router::defaultRouteClass(DashedRoute::class);
+Router::prefix('merchant_api', function (RouteBuilder $routes) {
+    $routes->connect('/:controller',array('controller'=>':controller', 'action'=>'add',"_method" => "POST"));
 
+    $routes->connect('/:controller/:id',array('controller'=>':controller', 'action'=>'view',"_method" => "GET"), array('pass' => array('id'), 'id'=>'[\d]+')
+        );
+    $routes->connect('/:controller/:id',array('controller'=>':controller', 'action'=>'edit',"_method" => "PUT"), array('pass' => array('id'), 'id'=>'[\d]+')
+        );
+    $routes->connect('/:controller/:id',array('controller'=>':controller', 'action'=>'delete',"_method" => "DELETE"), array('pass' => array('id'), 'id'=>'[\d]+')
+        );
+    $routes->fallbacks('InflectedRoute');
+});
 Router::scope('/', function (RouteBuilder $routes) {
     /**
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
