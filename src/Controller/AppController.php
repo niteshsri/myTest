@@ -81,7 +81,11 @@ class AppController extends Controller
       $user = $this->Auth->user();
       if($user){
         $fullName = ($user['last_name'])?$user['first_name'].' '.$user['last_name']: $user['first_name'];
-        $sideNavData = ['id'=>$user['id'],'full_name'=>$fullName,'first_name' => $user['first_name'],'last_name' => $user['last_name'] ,'role_name' => $user['role']['name'],'role_label' => $user['role']['label']];
+        $sideNavData = ['id'=>$user['id'],
+        'full_name'=>$fullName,'first_name' => $user['first_name'],'last_name' => $user['last_name'],
+        'is_approved'=> $user['is_approved'] ,
+        'is_verified'=> $user['is_verified'] ,
+        'role_name' => $user['role']['name'],'role_label' => $user['role']['label']];
         $this->set('sideNavData', $sideNavData);
       }
    }
