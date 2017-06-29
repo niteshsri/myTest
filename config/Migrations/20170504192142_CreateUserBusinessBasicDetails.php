@@ -62,12 +62,12 @@ class CreateUserBusinessBasicDetails extends AbstractMigration
             'limit' => 255,
             'null' => true,
         ]);
-        $table->addColumn('adhaar_img_name', 'string', [
+        $table->addColumn('rc_img_name', 'string', [
             'default' => null,
             'limit' => 255,
             'null' => true,
         ]);
-        $table->addColumn('adhaar_img_path', 'string', [
+        $table->addColumn('rc_path', 'string', [
             'default' => null,
             'limit' => 255,
             'null' => true,

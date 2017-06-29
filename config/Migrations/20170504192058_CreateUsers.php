@@ -82,14 +82,39 @@ class CreateUsers extends AbstractMigration
       'limit' => 11,
       'null' => true,
     ]);
-    $table->addColumn('img_salt', 'string', [
-        'default' => null,
-        'limit' => 8,
-        'null' => true,
-    ]);
     $table->addColumn('account_number', 'string', [
         'default' => null,
         'limit' => 10,
+        'null' => true,
+    ]);
+    $table->addColumn('profile_img_name', 'string', [
+        'default' => null,
+        'limit' => 255,
+        'null' => true,
+    ]);
+    $table->addColumn('profile_img_path', 'string', [
+        'default' => null,
+        'limit' => 255,
+        'null' => true,
+    ]);
+    $table->addColumn('pan_img_name', 'string', [
+        'default' => null,
+        'limit' => 255,
+        'null' => true,
+    ]);
+    $table->addColumn('pan_img_path', 'string', [
+        'default' => null,
+        'limit' => 255,
+        'null' => true,
+    ]);
+    $table->addColumn('adhaar_img_name', 'string', [
+        'default' => null,
+        'limit' => 255,
+        'null' => true,
+    ]);
+    $table->addColumn('adhaar_img_path', 'string', [
+        'default' => null,
+        'limit' => 255,
         'null' => true,
     ]);
     $table->addColumn('uuid', 'uuid', [
