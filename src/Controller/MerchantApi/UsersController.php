@@ -25,6 +25,7 @@ class UsersController extends ApiController
 	{
 		parent::initialize();
 		$this->loadComponent('RequestHandler');
+		$this->Auth->allow(['index','view','edit']);
 	}
 	public function view($id)
 	{
@@ -47,7 +48,8 @@ class UsersController extends ApiController
 		if (!$this->request->is(['get'])) {
 			throw new MethodNotAllowedException(__('BAD_REQUEST'));
 		}
-		$user = $this->Users->find()->contain(['UserAddress','UserBusinessBasicDetails.UserBusinessContactDetails'])->toArray();
+		$queryData = $this->request->query;
+		$user = $this->Users->find()->toArray();
 		$data =array();
 		$data['status']=true;
 		$data['data']=$user;
