@@ -36,8 +36,8 @@ class UsersFixture extends TestFixture
         'account_number' => ['type' => 'string', 'length' => 10, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'profile_img_name' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'profile_img_path' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'pan_number' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'adhaar_number' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'pan_number' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'adhaar_number' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'pan_img_name' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'pan_img_path' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'adhaar_img_name' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
@@ -76,7 +76,7 @@ class UsersFixture extends TestFixture
             'is_individual' => 1,
             'is_verified' => 1,
             'is_approved' => 1,
-            'is_deleted' => '2017-07-05 15:35:23',
+            'is_deleted' => '2017-07-05 15:50:41',
             'remark' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'approved_by' => 1,
             'last_modified_by' => 1,
@@ -89,9 +89,9 @@ class UsersFixture extends TestFixture
             'pan_img_path' => 'Lorem ipsum dolor sit amet',
             'adhaar_img_name' => 'Lorem ipsum dolor sit amet',
             'adhaar_img_path' => 'Lorem ipsum dolor sit amet',
-            'uuid' => 'f4e5dc63-2510-4f71-b06f-ad7788d5b917',
-            'created' => '2017-07-05 15:35:23',
-            'modified' => '2017-07-05 15:35:23'
+            'uuid' => '4d33e302-f832-4e49-8086-b8269ed13439',
+            'created' => '2017-07-05 15:50:41',
+            'modified' => '2017-07-05 15:50:41'
         ],
     ];
 }

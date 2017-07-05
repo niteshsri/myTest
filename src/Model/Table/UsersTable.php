@@ -5,6 +5,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use App\Controller\AppHelper;
+use Cake\Utility\Text;
 
 /**
  * Users Model
@@ -145,12 +147,10 @@ class UsersTable extends Table
             ->allowEmpty('profile_img_path');
 
         $validator
-            ->requirePresence('pan_number', 'create')
-            ->notEmpty('pan_number');
+            ->allowEmpty('pan_number');
 
         $validator
-            ->requirePresence('adhaar_number', 'create')
-            ->notEmpty('adhaar_number');
+            ->allowEmpty('adhaar_number');
 
         $validator
             ->allowEmpty('pan_img_name');
@@ -170,6 +170,14 @@ class UsersTable extends Table
 
         return $validator;
     }
+
+    public function beforeSave($event, $entity, $options) {
+    if($entity->isNew()){
+      $entity['uuid'] = Text::uuid();
+      $entity['account_number'] = AppHelper::generateCryptographicString('numeric','10');
+      $entity['img_salt'] = AppHelper::generateCryptographicString();
+    }
+  }
 
     /**
      * Returns a rules checker object that will be used for validating

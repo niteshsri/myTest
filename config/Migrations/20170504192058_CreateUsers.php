@@ -100,12 +100,12 @@ class CreateUsers extends AbstractMigration
     $table->addColumn('pan_number', 'string', [
         'default' => null,
         'limit' => 255,
-        'null' => false,
+        'null' => true,
     ]);
     $table->addColumn('adhaar_number', 'string', [
         'default' => null,
         'limit' => 255,
-        'null' => false,
+        'null' => true,
     ]);
     $table->addColumn('pan_img_name', 'string', [
         'default' => null,

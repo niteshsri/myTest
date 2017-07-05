@@ -30,6 +30,7 @@ class UsersTableTest extends TestCase
         'app.user_business_basic_details',
         'app.business_types',
         'app.business_categories',
+        'app.govt_documents',
         'app.user_business_contact_details',
         'app.reset_password_hash',
         'app.user_address'
@@ -75,16 +76,6 @@ class UsersTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test beforeSave method
-     *
-     * @return void
-     */
-    public function testBeforeSave()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
