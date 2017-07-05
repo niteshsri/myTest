@@ -2,30 +2,40 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
-use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * User Entity
  *
  * @property int $id
  * @property string $first_name
- * @property string $middle_name
  * @property string $last_name
  * @property string $email
  * @property string $username
+ * @property int $role_id
  * @property string $phone
  * @property string $password
  * @property bool $status
+ * @property bool $is_individual
  * @property bool $is_verified
  * @property bool $is_approved
- * @property \Cake\I18n\Time $is_deleted
+ * @property \Cake\I18n\FrozenTime $is_deleted
  * @property string $remark
  * @property int $approved_by
  * @property int $last_modified_by
+ * @property string $account_number
+ * @property string $profile_img_name
+ * @property string $profile_img_path
+ * @property string $pan_number
+ * @property string $adhaar_number
+ * @property string $pan_img_name
+ * @property string $pan_img_path
+ * @property string $adhaar_img_name
+ * @property string $adhaar_img_path
  * @property string $uuid
- * @property \Cake\I18n\Time $created
- * @property \Cake\I18n\Time $modified
+ * @property \Cake\I18n\FrozenTime $created
+ * @property \Cake\I18n\FrozenTime $modified
  *
+ * @property \App\Model\Entity\Role $role
  * @property \App\Model\Entity\BusinessBankDetail[] $business_bank_details
  * @property \App\Model\Entity\ResetPasswordHash[] $reset_password_hash
  * @property \App\Model\Entity\UserAddres[] $user_address
@@ -57,15 +67,4 @@ class User extends Entity
     protected $_hidden = [
         'password'
     ];
-
-    protected function _setPassword($value){
-       $hasher = new DefaultPasswordHasher();
-       return $hasher->hash($value);
-   }
-
-   protected function _getFullName()
-   {
-       return $this->_properties['first_name'] . '  ' .
-       $this->_properties['last_name'];
-   }
 }

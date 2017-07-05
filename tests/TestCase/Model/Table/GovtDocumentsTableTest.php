@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\UsersTable;
+use App\Model\Table\GovtDocumentsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\UsersTable Test Case
+ * App\Model\Table\GovtDocumentsTable Test Case
  */
-class UsersTableTest extends TestCase
+class GovtDocumentsTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\UsersTable
+     * @var \App\Model\Table\GovtDocumentsTable
      */
-    public $Users;
+    public $GovtDocuments;
 
     /**
      * Fixtures
@@ -24,15 +24,17 @@ class UsersTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
+        'app.govt_documents',
+        'app.user_business_basic_details',
+        'app.business_types',
         'app.users',
         'app.roles',
         'app.business_bank_details',
-        'app.user_business_basic_details',
-        'app.business_types',
-        'app.business_categories',
-        'app.user_business_contact_details',
         'app.reset_password_hash',
-        'app.user_address'
+        'app.user_address',
+        'app.user_business_contact_details',
+        'app.business_categories',
+        'app.govt_identifications'
     ];
 
     /**
@@ -43,8 +45,8 @@ class UsersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Users') ? [] : ['className' => 'App\Model\Table\UsersTable'];
-        $this->Users = TableRegistry::get('Users', $config);
+        $config = TableRegistry::exists('GovtDocuments') ? [] : ['className' => 'App\Model\Table\GovtDocumentsTable'];
+        $this->GovtDocuments = TableRegistry::get('GovtDocuments', $config);
     }
 
     /**
@@ -54,7 +56,7 @@ class UsersTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Users);
+        unset($this->GovtDocuments);
 
         parent::tearDown();
     }
@@ -75,26 +77,6 @@ class UsersTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test beforeSave method
-     *
-     * @return void
-     */
-    public function testBeforeSave()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

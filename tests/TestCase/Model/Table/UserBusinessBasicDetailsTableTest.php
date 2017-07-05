@@ -32,7 +32,8 @@ class UserBusinessBasicDetailsTableTest extends TestCase
         'app.reset_password_hash',
         'app.user_address',
         'app.user_business_contact_details',
-        'app.business_categories'
+        'app.business_categories',
+        'app.govt_identifications'
     ];
 
     /**

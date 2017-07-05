@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $BusinessTypes
  * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\BelongsTo $BusinessCategories
+ * @property \Cake\ORM\Association\BelongsTo $GovtDocuments
  * @property \Cake\ORM\Association\HasMany $BusinessBankDetails
  * @property \Cake\ORM\Association\HasMany $UserBusinessContactDetails
  *
@@ -56,6 +57,10 @@ class UserBusinessBasicDetailsTable extends Table
             'foreignKey' => 'business_category_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsTo('GovtDocuments', [
+            'foreignKey' => 'govt_document_id',
+            'joinType' => 'INNER'
+        ]);
         $this->hasMany('BusinessBankDetails', [
             'foreignKey' => 'user_business_basic_detail_id'
         ]);
@@ -85,10 +90,6 @@ class UserBusinessBasicDetailsTable extends Table
             ->notEmpty('pan_number');
 
         $validator
-            ->requirePresence('adhaar_number', 'create')
-            ->notEmpty('adhaar_number');
-
-        $validator
             ->allowEmpty('website_url');
 
         $validator
@@ -102,10 +103,10 @@ class UserBusinessBasicDetailsTable extends Table
             ->allowEmpty('pan_img_path');
 
         $validator
-            ->allowEmpty('adhaar_img_name');
+            ->allowEmpty('govt_id_img_name');
 
         $validator
-            ->allowEmpty('adhaar_img_path');
+            ->allowEmpty('govt_id_image_path');
 
         $validator
             ->boolean('is_approved')
@@ -141,6 +142,7 @@ class UserBusinessBasicDetailsTable extends Table
         $rules->add($rules->existsIn(['business_type_id'], 'BusinessTypes'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['business_category_id'], 'BusinessCategories'));
+        $rules->add($rules->existsIn(['govt_document_id'], 'GovtDocuments'));
 
         return $rules;
     }

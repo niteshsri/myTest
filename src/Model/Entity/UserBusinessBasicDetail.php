@@ -11,14 +11,14 @@ use Cake\ORM\Entity;
  * @property int $user_id
  * @property string $legal_entity_name
  * @property string $pan_number
- * @property string $adhaar_number
  * @property int $business_category_id
  * @property string $website_url
  * @property bool $status
  * @property string $pan_img_name
  * @property string $pan_img_path
- * @property string $adhaar_img_name
- * @property string $adhaar_img_path
+ * @property int $govt_document_id
+ * @property string $govt_id_img_name
+ * @property string $govt_id_image_path
  * @property bool $is_approved
  * @property \Cake\I18n\FrozenTime $is_deleted
  * @property string $remark
@@ -30,6 +30,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\BusinessType $business_type
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\BusinessCategory $business_category
+ * @property \App\Model\Entity\GovtIdentification $govt_identification
  * @property \App\Model\Entity\BusinessBankDetail[] $business_bank_details
  * @property \App\Model\Entity\UserBusinessContactDetail[] $user_business_contact_details
  */

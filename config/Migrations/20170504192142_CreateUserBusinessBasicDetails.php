@@ -33,11 +33,6 @@ class CreateUserBusinessBasicDetails extends AbstractMigration
             'limit' => 255,
             'null' => false,
         ]);
-        $table->addColumn('adhaar_number', 'string', [
-            'default' => null,
-            'limit' => 255,
-            'null' => false,
-        ]);
         $table->addColumn('business_category_id', 'integer', [
             'default' => null,
             'limit' => 11,
@@ -62,12 +57,17 @@ class CreateUserBusinessBasicDetails extends AbstractMigration
             'limit' => 255,
             'null' => true,
         ]);
-        $table->addColumn('rc_img_name', 'string', [
+        $table->addColumn('govt_document_id', 'integer', [
+            'default' => null,
+            'limit' => 11,
+            'null' => false,
+        ]);
+        $table->addColumn('govt_id_img_name', 'string', [
             'default' => null,
             'limit' => 255,
             'null' => true,
         ]);
-        $table->addColumn('rc_path', 'string', [
+        $table->addColumn('govt_id_image_path', 'string', [
             'default' => null,
             'limit' => 255,
             'null' => true,
