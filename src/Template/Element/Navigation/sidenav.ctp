@@ -34,7 +34,7 @@
                     <div class="separator"></div>
                     <span class="badge badge-info badge-rounded badge-sm">5</span>
                   </a>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="<?=$this->Url->build(['controller'=>"Users",'action'=>'view'])?>">
                     <i class="sli-settings"></i>
                     <span class="title">Profile</span>
                     <div class="separator"></div>
@@ -71,25 +71,25 @@
                     </a>
                     <ul class="list-unstyled collapse" id="payments">
                       <li>
-                        <a href="collapsed-sidebar-1/dashboards/dashboard.html" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
+                        <a href="<?= $this->Url->build(['controller' => 'Payments', 'action' => 'transactions'])?>" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
                           <i class="sli-star"></i>
                           <span class="title">All Transactions</span>
                         </a>
                       </li>
                       <li>
-                        <a href="index.html" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
+                        <a href="<?= $this->Url->build(['controller' => 'Payments', 'action' => 'settlements'])?>" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
                           <i class="sli-star"></i>
                           <span class="title">Settlements</span>
                         </a>
                       </li>
                       <li>
-                        <a href="off-canvas-1/dashboards/dashboard.html" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
+                        <a href="<?= $this->Url->build(['controller' => 'Payments', 'action' => 'refunds'])?>" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
                           <i class="sli-star"></i>
                           <span class="title">Refunds</span>
                         </a>
                       </li>
                       <li>
-                        <a href="top-navigation-1/dashboards/dashboard.html" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
+                        <a href="<?= $this->Url->build(['controller' => 'Payments', 'action' => 'disputes'])?>" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
                           <i class="sli-star"></i>
                           <span class="title">Disputes</span>
                         </a>
@@ -137,25 +137,25 @@
                     </ul>
                   </li>
                   <li>
-                    <a class="btn btn-default btn-flat btn-sidebar btn-sidebar-1" href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index'])?>">
+                    <a class="btn btn-default btn-flat btn-sidebar btn-sidebar-1" href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'downloads'])?>">
                       <i class="sli-star"></i>
                       <span class="title">Downloads</span>
                     </a>
                   </li>
                   <li>
-                    <a ata-target="#referral" data-toggle="collapse" class="btn btn-default btn-flat btn-sidebar btn-sidebar-1" >
+                    <a data-target="#referral" data-toggle="collapse" class="btn btn-default btn-flat btn-sidebar btn-sidebar-1" >
                       <i class="sli-star"></i>
                       <span class="title">Referral Program</span>
                     </a>
                     <ul class="list-unstyled collapse" id="referral">
                       <li>
-                        <a href="collapsed-sidebar-1/dashboards/dashboard.html" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
+                        <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'referrals'])?>" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
                           <i class="sli-star"></i>
                           <span class="title">Invite Referral</span>
                         </a>
                       </li>
                       <li>
-                        <a href="index.html" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
+                        <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'referrals'])?>" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
                           <i class="sli-star"></i>
                           <span class="title">Earning Status</span>
                         </a>

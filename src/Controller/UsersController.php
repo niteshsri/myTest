@@ -33,6 +33,12 @@ class UsersController extends AppController
     $this->set(compact('businessCat'));
     $this->set('_serialize', ['userData','businessType','businessCat']);
   }
+  public function dashboard()
+  {
+    $userData = $this->Users->findById($this->Auth->user('id'))->first();
+    $this->set(compact('userData'));
+    $this->set('_serialize', ['userData']);
+  }
 
   /**
   * View method
@@ -43,12 +49,9 @@ class UsersController extends AppController
   */
   public function view($id = null)
   {
-    $user = $this->Users->get($id, [
-      'contain' => ['BusinessBankDetails', 'ResetPasswordHash', 'UserAddress', 'UserBusinessBasicDetails', 'UserBusinessContactDetails']
-    ]);
-
-    $this->set('user', $user);
-    $this->set('_serialize', ['user']);
+    $userData = $this->Users->findById($this->Auth->user('id'))->contain(['UserAddress','UserBusinessBasicDetails','UserBusinessContactDetails','BusinessBankDetails'])->first();
+    $this->set(compact('userData'));
+    $this->set('_serialize', ['userData']);
   }
 
   /**
@@ -151,8 +154,14 @@ class UsersController extends AppController
         $this->loadModel('Roles');
         $user['role'] =  $this->Roles->find('RolesById', ['role' => $user['role_id']])->select(['name', 'label'])->first();
         $this->Auth->setUser($user);
-        $this->redirect(['controller' => 'Users',
-        'action' => 'index']);
+        if(!($user['is_approved'])){
+          $this->redirect(['controller' => 'Users',
+          'action' => 'index']);
+        }else{
+          $this->redirect(['controller' => 'Users',
+          'action' => 'dashboard']);
+        }
+
       }else{
         $this->Flash->error(__('Invalid User name or password'));
       }
@@ -162,6 +171,14 @@ class UsersController extends AppController
   {
     $this->Flash->success('You are now logged out.');
     return $this->redirect($this->Auth->logout());
+  }
+  public function downloads()
+  {
+
+  }
+  public function referrals()
+  {
+
   }
   public function isAuthorized($user)
   {
@@ -176,6 +193,55 @@ class UsersController extends AppController
     if ($this->request->is('post')) {
       $reqData = [];
       $isValidated  = true;
+      $user = $this->Users->findById($this->Auth->user('id'))->first();
+      if($this->request->data['first_name']){
+        $reqProfileData['first_name'] = $this->request->data['first_name'];
+      }else{
+        $this->Flash->error(__('Kindly Provide valid Name.'));
+        $isValidated  = false;
+      }
+      if($this->request->data['last_name']){
+        $reqProfileData['last_name'] = $this->request->data['last_name'];
+      }else{
+        $this->Flash->error(__('Kindly Provide valid Name.'));
+        $isValidated  = false;
+      }
+      if($this->request->data['email']){
+        $reqProfileData['email'] = $this->request->data['email'];
+      }else{
+        $this->Flash->error(__('Kindly Provide valid Email.'));
+        $isValidated  = false;
+      }
+      if($this->request->data['phone']){
+        $reqProfileData['phone'] = $this->request->data['phone'];
+      }else{
+        $this->Flash->error(__('Kindly Provide valid Email.'));
+        $isValidated  = false;
+      }
+      if($this->request->data['pan_number']){
+        $reqProfileData['pan_number'] = $this->request->data['pan_number'];
+      }else{
+        $this->Flash->error(__('Kindly Provide valid Pan Number.'));
+        $isValidated  = false;
+      }
+      if($this->request->data['pan_image_name']){
+        $reqProfileData['pan_img_name'] = $this->request->data['pan_image_name'];
+      }else{
+        $this->Flash->error(__('Kindly Provide valid Pan Number.'));
+        $isValidated  = false;
+      }
+      if($this->request->data['adhaar_number']){
+        $reqProfileData['adhaar_number'] = $this->request->data['adhaar_number'];
+      }else{
+        $this->Flash->error(__('Kindly Provide valid Adhaar Number.'));
+        $isValidated  = false;
+      }
+      if($this->request->data['adhaar_image_name']){
+        $reqProfileData['adhaar_img_name'] = $this->request->data['adhaar_image_name'];
+      }else{
+        $this->Flash->error(__('Kindly Provide valid Adhaar Number.'));
+        $isValidated  = false;
+      }
       if($this->request->data['address1']){
         $reqData['address1'] = $this->request->data['address1'];
       }else{
@@ -211,10 +277,10 @@ class UsersController extends AppController
       }
       if($isValidated){
         $reqData['user_id']=$this->Auth->user('id');
-        $this->loadModel('UserAddress');
-        $req  = $this->UserAddress->newEntity($reqData);
-        $req  = $this->UserAddress->patchEntity($req, $reqData);
-        if($this->UserAddress->save($req)){
+        $reqProfileData['user_address']= [$reqData];
+        $req  = $this->Users->patchEntity($user, $reqProfileData,['associated'=>'UserAddress']);
+        $req  = $this->Users->patchEntity($req, $reqProfileData,['associated'=>'UserAddress']);
+        if($this->Users->save($req,['associated'=>'UserAddress'])){
           $this->Flash->success(__('Address updated successfully.'));
         }else{
           $this->Flash->error(__('Kindly Provide valid Data.'));
@@ -370,12 +436,20 @@ class UsersController extends AppController
         $this->Flash->error(__('Kindly Provide valid Account Type.'));
         $isValidated  = false;
       }
+      if($this->request->data['cheque_img_name']){
+        $reqData['cheque_img_name'] = $this->request->data['cheque_img_name'];
+      }else{
+        $this->Flash->error(__('Kindly Provide valid Cancelled Cheque Image.'));
+        $isValidated  = false;
+      }
       $userBusinessBasicDetails = $this->Users->findById($this->Auth->user('id'))->contain(['UserBusinessBasicDetails'])->first();
-      if(!empty($userBusinessBasicDetails)){
+      if(!empty($userBusinessBasicDetails->user_business_basic_details) && !$userBusinessBasicDetails->is_individual){
         $reqData['user_business_basic_detail_id'] = $userBusinessBasicDetails->user_business_basic_details[0]->id;
       }else{
-        $this->Flash->error(__('Kindly Provide Business Detail First.'));
-        $isValidated  = false;
+        if(!$userBusinessBasicDetails->is_individual){
+          $this->Flash->error(__('Kindly Provide Business Detail First.'));
+          $isValidated  = false;
+        }
       }
       if($isValidated){
         $reqData['user_id']=$this->Auth->user('id');

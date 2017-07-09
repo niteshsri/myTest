@@ -70,6 +70,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <?= $this->Html->css("elements/jumbotron-2.css") ?>
   <?= $this->Html->css("dashboards/dashboard.css") ?>
   <?= $this->Html->css("apps/calendar.css") ?>
+  
   <?= $this->Html->css("ui-elements/buttons.css") ?>
   <?= $this->Html->css("ui-elements/images.css") ?>
   <?= $this->Html->css("ui-elements/lists.css") ?>
@@ -132,6 +133,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <?= $this->element('Navigation/topnav'); ?>
   <?= $this->element('Navigation/sidenav');?>
   <div class="col main">
+    <?php // $this->element('titleband')?>
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
   </div>
@@ -172,6 +174,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->script('charts/peity.js') ?>
     <?= $this->Html->script('charts/chartist.js') ?>
     <?= $this->Html->script('charts/nvd3.js') ?>
+
     <?= $this->Html->script('charts/easy-pie-chart.js') ?>
     <?= $this->Html->script('charts/morris-js.js') ?>
     <?= $this->Html->script('maps/google-maps.js') ?>

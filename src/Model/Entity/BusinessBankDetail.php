@@ -45,4 +45,16 @@ class BusinessBankDetail extends Entity
         '*' => true,
         'id' => false
     ];
+    protected function _getCancelledChequeImageUrl()
+      {
+          if(isset($this->_properties['cheque_img_name']) && is_array($this->_properties['cheque_img_name'])){
+              $this->_properties['cheque_img_name'] = '';
+          }
+          if(isset($this->_properties['cheque_img_name']) && !empty($this->_properties['cheque_img_name'])) {
+              $url = Router::url('/cancelled_cheque/'.$this->_properties['cheque_img_name'],true);
+          }else{
+              $url = Router::url('/img/default-img.jpeg',true);
+          }
+          return $url;
+      }
 }

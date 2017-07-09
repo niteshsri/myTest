@@ -1,52 +1,91 @@
 <?php
-/**
-  * @var \App\View\AppView $this
-  */
+$userProfile = $userData;
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Business Bank Details'), ['controller' => 'BusinessBankDetails', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Business Bank Detail'), ['controller' => 'BusinessBankDetails', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Reset Password Hash'), ['controller' => 'ResetPasswordHash', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Reset Password Hash'), ['controller' => 'ResetPasswordHash', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List User Address'), ['controller' => 'UserAddress', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User Addres'), ['controller' => 'UserAddress', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List User Business Basic Details'), ['controller' => 'UserBusinessBasicDetails', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User Business Basic Detail'), ['controller' => 'UserBusinessBasicDetails', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List User Business Contact Details'), ['controller' => 'UserBusinessContactDetails', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User Business Contact Detail'), ['controller' => 'UserBusinessContactDetails', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="users form large-9 medium-8 columns content">
-    <?= $this->Form->create($user) ?>
-    <fieldset>
-        <legend><?= __('Edit User') ?></legend>
-        <?php
-            echo $this->Form->control('first_name');
-            echo $this->Form->control('middle_name');
-            echo $this->Form->control('last_name');
-            echo $this->Form->control('email');
-            echo $this->Form->control('username');
-            echo $this->Form->control('phone');
-            echo $this->Form->control('password');
-            echo $this->Form->control('status');
-            echo $this->Form->control('is_verified');
-            echo $this->Form->control('is_approved');
-            echo $this->Form->control('is_deleted', ['empty' => true]);
-            echo $this->Form->control('remark');
-            echo $this->Form->control('approved_by');
-            echo $this->Form->control('last_modified_by');
-            echo $this->Form->control('uuid');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
-</div>
+<div class="row">
+  <div class="col">
+    <ol class="breadcrumb breadcrumb-default icon-grid icon-angle-double-right">
+      <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'dashboard'])?>">Dashboard</a>
+        <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'edit'])?>">Profile</a>
+        </ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a href="#" class="nav-link active" data-toggle="tab" data-target="#default-tabs-0-1">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-toggle="tab" data-target="#default-tabs-0-2">Business</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-toggle="tab" data-target="#default-tabs-0-3">Bank</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="default-tabs-0-1">
+              <?= $this->Form->create(null,['url'=>'#']); ?>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <?= $this->Form->label('first_name', __('First Name'), ['class' => [ 'control-label col-md-3']]); ?>
+                  <?= $this->Form->text('first_name', ['value'=>$userProfile->first_name,'class' => 'col-md-8', 'required'=>'required']); ?>
+                </div>
+                <div class="col-md-6">
+                  <?= $this->Form->label('last_name', __('Last Name'), ['class' => [ 'control-label col-md-3']]); ?>
+                  <?= $this->Form->text('last_name', ['value'=>$userProfile->last_name,'class' => 'col-md-8','label' => false, 'required'=>'required']); ?>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <?= $this->Form->label('email', __('Email'), ['class' => [ 'control-label col-md-3']]); ?>
+                  <?= $this->Form->text('email', ['value'=>$userProfile->email,'class' => 'col-md-8', 'required'=>'required']); ?>
+                </div>
+                <div class="col-md-6">
+                  <?= $this->Form->label('phone', __('Phone'), ['class' => [ 'control-label col-md-3']]); ?>
+                  <?= $this->Form->text('phone', ['value'=>$userProfile->phone,'class' => 'col-md-8','label' => false, 'required'=>'required']); ?>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <?= $this->Form->label('pan_number', __('Pan Number'), ['class' => [ 'control-label col-md-3']]); ?>
+                  <?= $this->Form->text('pan_number', ['value'=>$userProfile->pan_number,'class' => 'col-md-8', 'required'=>'required']); ?>
+                </div>
+                <div class="col-md-6">
+                  <?= $this->Form->label('adhaar_number', __('Adhaar Number'), ['class' => [ 'control-label col-md-4']]); ?>
+                  <?= $this->Form->text('adhaar_number', ['value'=>$userProfile->adhaar_number,'class' => 'col-md-7','label' => false, 'required'=>'required']); ?>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <?= $this->Form->label('address1', __('Address'), ['class' => [ 'control-label']]); ?>
+                  <?= $this->Form->Input('address1', ['class' => 'form-control col-md-12', 'label' => false, 'placeholder' => 'Please enter Address', 'required'=>'required']); ?>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <?= $this->Form->Input('address2', ['class' => 'form-control col-md-12', 'label' => false]); ?>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-3">
+                  <?= $this->Form->label('pin_code', __('Pin Code'), ['class' => [ 'control-label']]); ?>
+                  <?= $this->Form->Input('pin_code', ['class' => '', 'label' => false, 'placeholder' => 'Please enter First Name', 'required'=>'required']); ?>
+                </div>
+                <div class="col-md-3">
+                  <?= $this->Form->label('country', __('Country'), ['class' => [ 'control-label']]); ?>
+                  <?= $this->Form->Input('country', ['class' => '', 'label' => false, 'placeholder' => 'Please enter Last Name']); ?>
+                </div>
+                <div class="col-md-3">
+                  <?= $this->Form->label('city', __('City'), ['class' => [ 'control-label']]); ?>
+                  <?= $this->Form->Input('city', ['class' => '', 'label' => false, 'placeholder' => 'Please enter Middle Name']); ?>
+                </div>
+                <div class="col-md-3">
+                  <?= $this->Form->label('state', __('State'), ['class' => [ 'control-label']]); ?>
+                  <?= $this->Form->Input('state', ['class' => '', 'label' => false, 'placeholder' => 'Please enter Last Name']); ?>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -74,10 +74,36 @@ class User extends Entity
     $hasher = new DefaultPasswordHasher();
     return $hasher->hash($value);
   }
-  
+
   protected function _getFullName()
   {
     return $this->_properties['first_name'] . '  ' .
     $this->_properties['last_name'];
   }
+  protected function _getPanImageUrl()
+    {
+
+        if(isset($this->_properties['pan_img_name']) && is_array($this->_properties['pan_img_name'])){
+            $this->_properties['pan_img_name'] = '';
+        }
+        if(isset($this->_properties['pan_img_name']) && !empty($this->_properties['pan_img_name'])) {
+            $url = Router::url('/user_pan/'.$this->_properties['pan_img_name'],true);
+        }else{
+            $url = Router::url('/img/default-img.jpeg',true);
+        }
+        return $url;
+    }
+    protected function _getAdhaarImageUrl()
+      {
+
+          if(isset($this->_properties['adhaar_img_name']) && is_array($this->_properties['adhaar_img_name'])){
+              $this->_properties['adhaar_img_name'] = '';
+          }
+          if(isset($this->_properties['adhaar_img_name']) && !empty($this->_properties['adhaar_img_name'])) {
+              $url = Router::url('/user_adhaar/'.$this->_properties['adhaar_img_name'],true);
+          }else{
+              $url = Router::url('/img/default-img.jpeg',true);
+          }
+          return $url;
+      }
 }

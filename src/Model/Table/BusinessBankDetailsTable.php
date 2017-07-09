@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Core\Configure;
 
 /**
  * BusinessBankDetails Model
@@ -48,6 +49,17 @@ class BusinessBankDetailsTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
+        ]);
+        $this->addBehavior('Josegonzalez/Upload.Upload', [
+          'cheque_img_name' => [
+            'path' => Configure::read('ImageUpload.cancelledChequeImages'),
+            'fields' => [
+              'dir' => 'cheque_img_path'
+            ],
+            'nameCallback' => function ($data, $settings) {
+              return time(). str_replace(' ', '_', $data['name']) ;
+            },
+          ]
         ]);
     }
 

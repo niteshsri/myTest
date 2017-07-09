@@ -73,7 +73,7 @@ class AppController extends Controller
   }
   public function isAuthorized($user)
   {
-    return false;
+    return true;
   }
 
   public function beforeFilter(Event $event)

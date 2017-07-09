@@ -1,10 +1,15 @@
 <?php
+$userProfile = $userData;
 $updateUserAddress = $this->Url->build('/update_user_address',true);
 $updateBusinessDetails = $this->Url->build('/update_business_detail',true);
 $updateBankDetails = $this->Url->build('/update_bank_detail',true);
 $activeTab = 'address';
 if($userData->user_address){
-  $activeTab = 'business';
+  if(!$userProfile->is_individual){
+    $activeTab = 'business';
+  }else{
+    $activeTab = 'bank';
+  }
 }
 if($userData->user_business_basic_details){
   $activeTab = 'bank';
@@ -33,7 +38,7 @@ if($userData->user_business_basic_details){
             <a href="#" class="nav-link <?php echo ($activeTab == 'address')?'active':'';?>" data-toggle="tab" data-target="#default-tabs-0-1">Address</a>
           </li>
           <?php }?>
-          <?php if(!($userData->user_business_basic_details && $userData->user_business_contact_details)){?>
+          <?php if(!$userProfile->is_individual && !($userData->user_business_basic_details && $userData->user_business_contact_details)){?>
             <li class="nav-item">
               <a href="#" class="nav-link <?php echo ($activeTab == 'business')?'active':'';?>" data-toggle="tab" data-target="#default-tabs-0-2">Business</a>
             </li>
@@ -47,7 +52,45 @@ if($userData->user_business_basic_details){
             <div class="tab-content">
               <?php if(!$userData->user_address){?>
                 <div role="tabpanel" class="tab-pane <?php echo ($activeTab == 'address')?'active':'';?>" id="default-tabs-0-1">
-                  <?= $this->Form->create(null,['url'=>$updateUserAddress]); ?>
+                  <?= $this->Form->create(null,['url'=>$updateUserAddress,'enctype'=>"multipart/form-data"]); ?>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <?= $this->Form->label('first_name', __('First Name'), ['class' => [ 'control-label col-md-3']]); ?>
+                      <?= $this->Form->text('first_name', ['value'=>$userProfile->first_name,'class' => 'col-md-8', 'required'=>'required']); ?>
+                    </div>
+                    <div class="col-md-6">
+                      <?= $this->Form->label('last_name', __('Last Name'), ['class' => [ 'control-label col-md-3']]); ?>
+                      <?= $this->Form->text('last_name', ['value'=>$userProfile->last_name,'class' => 'col-md-8','label' => false, 'required'=>'required']); ?>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <?= $this->Form->label('email', __('Email'), ['class' => [ 'control-label col-md-3']]); ?>
+                      <?= $this->Form->text('email', ['value'=>$userProfile->email,'class' => 'col-md-8', 'required'=>'required']); ?>
+                    </div>
+                    <div class="col-md-6">
+                      <?= $this->Form->label('phone', __('Phone'), ['class' => [ 'control-label col-md-3']]); ?>
+                      <?= $this->Form->text('phone', ['value'=>$userProfile->phone,'class' => 'col-md-8','label' => false, 'required'=>'required']); ?>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <?= $this->Form->label('pan_number', __('Pan Number'), ['class' => [ 'control-label col-md-3']]); ?>
+                      <?= $this->Form->text('pan_number', ['value'=>$userProfile->pan_number,'class' => 'col-md-8', 'required'=>'required']); ?>
+                    </div>
+                    <div class="col-md-6">
+                      <?= $this->Form->label('adhaar_number', __('Adhaar Number'), ['class' => [ 'control-label col-md-4']]); ?>
+                      <?= $this->Form->text('adhaar_number', ['value'=>$userProfile->adhaar_number,'class' => 'col-md-7','label' => false, 'required'=>'required']); ?>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <?= $this->Form->input('pan_image_name',['accept'=>"image/*",'label'=>['text'=>'Pan Image','class'=>'col-sm-3'],'class' => ['col-sm-8'],'type' => "file",'required'=>'required'] ); ?>
+                    </div>
+                    <div class="col-md-6">
+                      <?= $this->Form->input('adhaar_image_name', ['accept'=>"image/*",'label' => ['text'=>'Pan Image','class'=>'col-sm-3'],'class' => ['col-sm-8'],'type' => "file",'required'=>'required'] ); ?>
+                    </div>
+                  </div>
                   <div class="form-group row">
                     <div class="col-md-12">
                       <?= $this->Form->label('address1', __('Address'), ['class' => [ 'control-label']]); ?>
@@ -85,7 +128,7 @@ if($userData->user_business_basic_details){
                 </form>
               </div>
               <?php }?>
-              <?php if(!($userData->user_business_basic_details && $userData->user_business_contact_details)){?>
+              <?php if( !$userProfile->is_individual && !($userData->user_business_basic_details && $userData->user_business_contact_details)){?>
                 <div role="tabpanel" class="tab-pane <?php echo ($activeTab == 'business')?'active':'';?>" id="default-tabs-0-2">
                   <?= $this->Form->create(null,['url'=>$updateBusinessDetails]); ?>
                   <div class="form-group row">
@@ -161,7 +204,7 @@ if($userData->user_business_basic_details){
               <?php }?>
               <?php if(!$userData->business_bank_details){?>
                 <div role="tabpanel" class="tab-pane <?php echo ($activeTab == 'bank')?'active':'';?>" id="default-tabs-0-3">
-                  <?= $this->Form->create(null,['url'=>$updateBankDetails]); ?>
+                  <?= $this->Form->create(null,['url'=>$updateBankDetails,'enctype'=>"multipart/form-data"]); ?>
                   <div class="form-group row">
                     <div class="col-md-6">
                       <?= $this->Form->label('name', __('Account holder Name'), ['class' => [ 'control-label']]); ?>
@@ -201,9 +244,11 @@ if($userData->user_business_basic_details){
                       <?= $this->Form->Input('bank_branch', ['class' => 'form-control col-md-12', 'label' => false, 'placeholder' => 'Please enter Branch Name', 'required'=>'required']); ?>
                     </div>
                   </div>
-
+                  <div class="form-group row">
+                      <?= $this->Form->input('cheque_img_name',['accept'=>"image/*",'label'=>['text'=>'Cancelled Cheque','class'=>'col-sm-5'],'class' => ['col-sm-8'],'type' => "file",'required'=>'required'] ); ?>
+                  </div>
                   <div class="text-center">
-                    <button class="btn btn-success">Register</button>
+                    <button class="btn btn-success">Save</button>
                     <button class="btn btn-default">Cancel</button>
                   </div>
                 </form>
