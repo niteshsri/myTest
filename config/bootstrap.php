@@ -222,3 +222,18 @@ if (Configure::read('debug')) {
 }
 
 Plugin::load('DebugKit');
+if(!Configure::read('ImageUpload.userPanImages')) {
+    Configure::write('ImageUpload.userPanImages',Configure::read('App.webroot').'/user_pan');
+}
+if(!Configure::read('ImageUpload.userAdhaarImages')) {
+    Configure::write('ImageUpload.userAdhaarImages',Configure::read('App.webroot').'/user_adhaar');
+}
+if(!Configure::read('ImageUpload.cancelledChequeImages')) {
+    Configure::write('ImageUpload.cancelledChequeImages',Configure::read('App.webroot').'/cancelled_cheque');
+}
+if(!Configure::read('ImageUpload.businessGovtIdImages')) {
+    Configure::write('ImageUpload.businessGovtIdImages',Configure::read('App.webroot').'/business_govt_doc');
+}
+if(!Configure::read('ImageUpload.businessPanImages')) {
+    Configure::write('ImageUpload.businessPanImages',Configure::read('App.webroot').'/business_pan');
+}

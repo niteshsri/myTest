@@ -3,6 +3,7 @@ namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\Routing\Router;
 
 /**
 * User Entity
@@ -69,6 +70,9 @@ class User extends Entity
     'password'
   ];
 
+
+  protected $_virtual = ['full_name','pan_image_url','adhaar_image_url'];
+
   protected function _setPassword($value)
   {
     $hasher = new DefaultPasswordHasher();
@@ -95,7 +99,6 @@ class User extends Entity
     }
     protected function _getAdhaarImageUrl()
       {
-
           if(isset($this->_properties['adhaar_img_name']) && is_array($this->_properties['adhaar_img_name'])){
               $this->_properties['adhaar_img_name'] = '';
           }

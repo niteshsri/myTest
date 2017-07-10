@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Routing\Router;
 
 /**
  * UserBusinessBasicDetail Entity
@@ -50,4 +51,30 @@ class UserBusinessBasicDetail extends Entity
         '*' => true,
         'id' => false
     ];
+
+      protected $_virtual = ['pan_image_url','govt_doc_url'];
+    protected function _getPanImageUrl()
+      {
+          if(isset($this->_properties['pan_img_name']) && is_array($this->_properties['pan_img_name'])){
+              $this->_properties['pan_img_name'] = '';
+          }
+          if(isset($this->_properties['pan_img_name']) && !empty($this->_properties['pan_img_name'])) {
+              $url = Router::url('/business_pan/'.$this->_properties['pan_img_name'],true);
+          }else{
+              $url = Router::url('/img/default-img.jpeg',true);
+          }
+          return $url;
+      }
+      protected function _getBusinessDocImageUrl()
+        {
+            if(isset($this->_properties['govt_id_img_name']) && is_array($this->_properties['govt_id_img_name'])){
+                $this->_properties['govt_id_img_name'] = '';
+            }
+            if(isset($this->_properties['govt_id_img_name']) && !empty($this->_properties['govt_id_img_name'])) {
+                $url = Router::url('/business_govt_doc/'.$this->_properties['govt_id_img_name'],true);
+            }else{
+                $url = Router::url('/img/default-img.jpeg',true);
+            }
+            return $url;
+        }
 }

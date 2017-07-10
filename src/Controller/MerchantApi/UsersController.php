@@ -32,7 +32,7 @@ class UsersController extends ApiController
 		if (!$this->request->is(['get'])) {
 			throw new MethodNotAllowedException(__('BAD_REQUEST'));
 		}
-		$user = $this->Users->findById($id)->contain(['UserAddress','UserBusinessBasicDetails.UserBusinessContactDetails'])->first();
+		$user = $this->Users->findById($id)->contain(['UserAddress','UserBusinessBasicDetails.UserBusinessContactDetails','BusinessBankDetails','UserBusinessBasicDetails.BusinessTypes','UserBusinessBasicDetails.BusinessCategories','UserBusinessBasicDetails.GovtDocuments'])->first();
 		if(!$user){
 			throw new NotFoundException(__('ENTITY_DOES_NOT_EXISTS','User'));
 		}

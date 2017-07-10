@@ -16,7 +16,7 @@ class CreateBusinessBankDetails extends AbstractMigration
         $table->addColumn('user_business_basic_detail_id', 'integer', [
             'default' => null,
             'limit' => 11,
-            'null' => false,
+            'null' => true,
         ]);
         $table->addColumn('user_id', 'integer', [
             'default' => null,

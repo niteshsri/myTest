@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Routing\Router;
 
 /**
  * BusinessBankDetail Entity
@@ -45,6 +46,8 @@ class BusinessBankDetail extends Entity
         '*' => true,
         'id' => false
     ];
+      protected $_virtual = ['cancelled_cheque_image_url'];
+
     protected function _getCancelledChequeImageUrl()
       {
           if(isset($this->_properties['cheque_img_name']) && is_array($this->_properties['cheque_img_name'])){

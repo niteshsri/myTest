@@ -28,10 +28,13 @@ class UsersController extends AppController
     $businessType = $this->BusinessTypes->find('list')->toArray();
     $this->loadModel('BusinessCategories');
     $businessCat = $this->BusinessCategories->find('list')->toArray();
+    $this->loadModel('GovtDocuments');
+    $govtDocs = $this->GovtDocuments->find('list')->toArray();
     $this->set(compact('userData'));
     $this->set(compact('businessType'));
     $this->set(compact('businessCat'));
-    $this->set('_serialize', ['userData','businessType','businessCat']);
+    $this->set(compact('govtDocs'));
+    $this->set('_serialize', ['userData','businessType','businessCat','govtDocs']);
   }
   public function dashboard()
   {
@@ -330,16 +333,22 @@ class UsersController extends AppController
         $this->Flash->error(__('Kindly Provide valid PAN Card Number.'));
         $isValidated  = false;
       }
-      if($this->request->data['adhaar_number']){
-        $reqData['adhaar_number'] = $this->request->data['adhaar_number'];
+      if($this->request->data['pan_img_name']){
+        $reqData['pan_img_name'] = $this->request->data['pan_img_name'];
       }else{
-        $this->Flash->error(__('Kindly Provide valid Adhaar Number.'));
+        $this->Flash->error(__('Kindly Provide valid Pan Image.'));
         $isValidated  = false;
       }
-      if($this->request->data['adhaar_number']){
-        $reqData['adhaar_number'] = $this->request->data['adhaar_number'];
+      if($this->request->data['govt_document_id']){
+        $reqData['govt_document_id'] = $this->request->data['pan_img_name'];
       }else{
-        $this->Flash->error(__('Kindly Provide valid Adhaar Number.'));
+        $this->Flash->error(__('Kindly select Govt document.'));
+        $isValidated  = false;
+      }
+      if($this->request->data['govt_id_img_name']){
+        $reqData['govt_id_img_name'] = $this->request->data['govt_id_img_name'];
+      }else{
+        $this->Flash->error(__('Kindly Provide valid Govt Id Image.'));
         $isValidated  = false;
       }
       if($this->request->data['business_address1']){

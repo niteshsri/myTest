@@ -5,7 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-
+use Cake\Core\Configure;
 /**
  * UserBusinessBasicDetails Model
  *
@@ -66,6 +66,26 @@ class UserBusinessBasicDetailsTable extends Table
         ]);
         $this->hasMany('UserBusinessContactDetails', [
             'foreignKey' => 'user_business_basic_detail_id'
+        ]);
+        $this->addBehavior('Josegonzalez/Upload.Upload', [
+          'pan_img_name' => [
+            'path' => Configure::read('ImageUpload.businessPanImages'),
+            'fields' => [
+              'dir' => 'pan_img_path'
+            ],
+            'nameCallback' => function ($data, $settings) {
+              return time(). str_replace(' ', '_', $data['name']) ;
+            },
+          ],
+          'govt_id_img_name' => [
+            'path' => Configure::read('ImageUpload.businessGovtIdImages'),
+            'fields' => [
+              'dir' => 'govt_id_image_path'
+            ],
+            'nameCallback' => function ($data, $settings) {
+              return time(). str_replace(' ', '_', $data['name']) ;
+            },
+          ],
         ]);
     }
 
