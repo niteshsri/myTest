@@ -141,9 +141,7 @@ class UsersController extends ApiController
 		if($bankRequest){
 			$processRequest['business_bank_details']=[$bankRequest];
 		}
-		pr($processRequest);
 		$user = $this->Users->patchEntity($user,$processRequest,['associated'=>['UserBusinessBasicDetails','BusinessBankDetails']]);
-		pr($user);die;
 		if($user->errors()){
 			pr($user->errors());die;
 		}
