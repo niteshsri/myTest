@@ -94,7 +94,7 @@ class UsersController extends ApiController
 			if(!$businessData){
 				throw new NotFoundException(__('ENTITY_DOES_NOT_EXISTS','Business Data'));
 			}
-			if(isset($requestData['id'])){
+			if(isset($requestData['business_data']['business_id'])){
 				$businessRequest['id'] =  $requestData['business_data']['business_id'];
 			}
 			if(isset($requestData['is_approved'])){
@@ -121,7 +121,7 @@ class UsersController extends ApiController
 			if(!$bankData){
 				throw new NotFoundException(__('ENTITY_DOES_NOT_EXISTS','Bank Data'));
 			}
-			if(isset($requestData['id'])){
+			if(isset($requestData['bank_data']['bank_id'])){
 				$bankRequest['id'] =  $requestData['bank_data']['bank_id'];
 			}
 			if(isset($requestData['is_approved'])){
