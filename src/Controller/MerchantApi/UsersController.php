@@ -70,7 +70,7 @@ class UsersController extends ApiController
 		if(!$user){
 			throw new NotFoundException(__('ENTITY_DOES_NOT_EXISTS','User'));
 		}
-		$processRequest=[];		
+		$processRequest=[];
 		$processRequest['id'] =  $id;
 		if(!$requestData['emp_id']){
 			throw new BadRequestException(__('Kindly provide emp Id'));
@@ -117,7 +117,7 @@ class UsersController extends ApiController
 		$bankRequest = null;
 		if(isset($requestData['bank_data'])){
 			$this->loadModel('BusinessBankDetails');
-			$bankData = $this->UserBusinessBasicDetails->find()->where(['id'=>$requestData['bank_data']['bank_id'],'user_id'=>$id])->first();
+			$bankData = $this->BusinessBankDetails->find()->where(['id'=>$requestData['bank_data']['bank_id'],'user_id'=>$id])->first();
 			if(!$bankData){
 				throw new NotFoundException(__('ENTITY_DOES_NOT_EXISTS','Bank Data'));
 			}
@@ -141,7 +141,9 @@ class UsersController extends ApiController
 		if($bankRequest){
 			$processRequest['business_bank_details']=[$bankRequest];
 		}
+		pr($processRequest);
 		$user = $this->Users->patchEntity($user,$processRequest,['associated'=>['UserBusinessBasicDetails','BusinessBankDetails']]);
+		pr($user);die;
 		if($user->errors()){
 			pr($user->errors());die;
 		}
