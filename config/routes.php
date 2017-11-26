@@ -42,6 +42,17 @@ use Cake\Routing\Route\DashedRoute;
  *
  */
 Router::defaultRouteClass(DashedRoute::class);
+Router::prefix('api', function (RouteBuilder $routes) {
+    $routes->connect('/:controller',array('controller'=>':controller', 'action'=>'add',"_method" => "POST"));
+
+    $routes->connect('/:controller/:id',array('controller'=>':controller', 'action'=>'view',"_method" => "GET"), array('pass' => array('id'), 'id'=>'[\d]+')
+        );
+    $routes->connect('/:controller/:id',array('controller'=>':controller', 'action'=>'edit',"_method" => "PUT"), array('pass' => array('id'), 'id'=>'[\d]+')
+        );
+    $routes->connect('/:controller/:id',array('controller'=>':controller', 'action'=>'delete',"_method" => "DELETE"), array('pass' => array('id'), 'id'=>'[\d]+')
+        );
+    $routes->fallbacks('InflectedRoute');
+});
 Router::prefix('merchant_api', function (RouteBuilder $routes) {
     $routes->connect('/:controller',array('controller'=>':controller', 'action'=>'add',"_method" => "POST"));
 
@@ -59,7 +70,10 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
+    
     $routes->connect('/', ['controller' => 'Users', 'action' => 'login']);
+    $routes->connect('/transact/:hash_key', ['controller' => 'UserTransactions', 'action' => 'emailInvoiceTransaction',"_method" => "GET"], array('pass' => array('hash_key')));
+    $routes->connect('/transaction/:hash_key', ['controller' => 'UserTransactions', 'action' => 'transaction',"_method" => "POST"], array('pass' => array('hash_key')));
     $routes->connect('/update_user_address', ['controller' => 'Users', 'action' => 'updateUserAddress']);
     $routes->connect('/update_business_detail', ['controller' => 'Users', 'action' => 'updateBusinessDetails']);
     $routes->connect('/update_bank_detail', ['controller' => 'Users', 'action' => 'updateBusinessBankDetails']);

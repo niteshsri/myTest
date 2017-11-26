@@ -39,7 +39,15 @@ class UsersController extends AppController
   public function dashboard()
   {
     $userData = $this->Users->findById($this->Auth->user('id'))->first();
-    $this->set(compact('userData'));
+    $this->loadModel('UserTransactions');
+    $userTransactions= $this->UserTransactions->findByUserId($this->Auth->user('id'));
+    $totalTransations = $userTransactions->sumOf('amount'); 
+    $successfulTransations = $this->UserTransactions->findByUserId($this->Auth->user('id'))->where(['transcation_identifier'=>'1'])->count();
+    $failedTransations = $this->UserTransactions->findByUserId($this->Auth->user('id'))->where(['transcation_identifier'=>'0'])->sumOf('amount');
+    $pendingTransations = $this->UserTransactions->findByUserId($this->Auth->user('id'))->where(['transcation_identifier'=>'2'])->sumOf('amount'); 
+    $refundTransations = $this->UserTransactions->findByUserId($this->Auth->user('id'))->where(['transcation_identifier'=>'3'])->sumOf('amount'); 
+    $collectionTransations = $this->UserTransactions->findByUserId($this->Auth->user('id'))->where(['transcation_identifier'=>'4'])->sumOf('amount');
+    $this->set(compact('userData','totalTransations','successfulTransations','failedTransations','pendingTransations','refundTransations','collectionTransations'));
     $this->set('_serialize', ['userData']);
   }
 

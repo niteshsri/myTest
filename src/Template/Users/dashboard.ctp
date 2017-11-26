@@ -1,4 +1,6 @@
-
+<?php 
+// pr($totalTransations);die;
+ ?>
 <?= $this->Html->css("c3/c3.min.css") ?>
 <div class="row">
   <div class="col-12 col-md-12 col-lg-3 m-b-10">
@@ -6,7 +8,7 @@
       <div class="row flex-items-xs-middle">
         <div class="col">
           <div class="title">
-            45 </div>
+            <?= $successfulTransations?> </div>
           </div>
         </div>
         <div class="row flex-items-xs-middle">
@@ -25,7 +27,7 @@
           <div class="row flex-items-xs-middle">
             <div class="col">
               <div class="title">
-                $3,231 </div>
+                <?= $totalTransations?></div>
               </div>
             </div>
             <div class="row flex-items-xs-middle">
@@ -44,7 +46,7 @@
               <div class="row flex-items-xs-middle">
                 <div class="col">
                   <div class="title">
-                    $1,667 </div>
+                    <?= $collectionTransations?> </div>
                   </div>
                 </div>
                 <div class="row flex-items-xs-middle">
@@ -63,7 +65,7 @@
                   <div class="row flex-items-xs-middle">
                     <div class="col">
                       <div class="title">
-                        $398 </div>
+                        <?= $pendingTransations?></div>
                       </div>
                     </div>
                     <div class="row flex-items-xs-middle">
@@ -82,7 +84,7 @@
                       <div class="row flex-items-xs-middle">
                         <div class="col">
                           <div class="title">
-                            $398 </div>
+                             <?= $refundTransations?></div>
                           </div>
                         </div>
                         <div class="row flex-items-xs-middle">

@@ -205,6 +205,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->script('bower_components/table-export/jspdf/libs/sprintf.js') ?>
     <?= $this->Html->script('bower_components/table-export/jspdf/jspdf.js') ?>
     <?= $this->Html->script('bower_components/table-export/jspdf/libs/base64.js') ?>
+    <?= $this->Html->script('bootstrap-datetimepicker.js') ?>
     <?= $this->Html->script('bower_components/jquery-treegrid/js/jquery.treegrid.min.js') ?>
     <?= $this->Html->script('bower_components/peity/jquery.peity.min.js') ?>
     <?= $this->Html->script('bower_components/chartist/dist/chartist.min.js') ?>

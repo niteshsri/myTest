@@ -103,7 +103,7 @@
                     </a>
                     <ul class="list-unstyled collapse" id="tools">
                       <li>
-                        <a href="collapsed-sidebar-1/dashboards/dashboard.html" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
+                        <a href="<?= $this->Url->build(['controller' => 'UserEmailInvoices', 'action' => 'index'])?>" class="btn btn-default btn-flat btn-sidebar btn-sidebar-2">
                           <i class="sli-star"></i>
                           <span class="title">Email Invoicing</span>
                         </a>

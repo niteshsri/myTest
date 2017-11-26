@@ -14,7 +14,7 @@ class PaymentsController extends AppController
   public function initialize()
   {
     parent::initialize();
-  }
+}
     /**
      * Index method
      *
@@ -22,15 +22,47 @@ class PaymentsController extends AppController
      */
     public function transactions()
     {
+        
+        $this->loadModel('Users');
+        $userData = $this->Users->findById($this->Auth->user('id'))->first();
+        $this->loadModel('UserTransactions');
+        $userTransactions= $this->UserTransactions->findByUserId($this->Auth->user('id'))->contain(['UserEmailInvoices'])->toArray();
+        // pr($userTransactions);die;
+        $this->set(compact('userData','userTransactions'));
+        $this->set('_serialize', ['userData']);
     }
     public function settlements()
     {
+        $this->loadModel('Users');
+        $userData = $this->Users->findById($this->Auth->user('id'))->first();
+        $this->loadModel('UserTransactions');
+        $userTransactions= $this->UserTransactions->findByUserId($this->Auth->user('id'))->contain(['UserEmailInvoices'])
+        ->where(['UserTransactions.transcation_identifier'=>'4'])->toArray();
+        // pr($userTransactions);die;
+        $this->set(compact('userData','userTransactions'));
+        $this->set('_serialize', ['userData']);
     }
     public function disputes()
     {
+        $this->loadModel('Users');
+        $userData = $this->Users->findById($this->Auth->user('id'))->first();
+        $this->loadModel('UserTransactions');
+        $userTransactions= $this->UserTransactions->findByUserId($this->Auth->user('id'))->contain(['UserEmailInvoices'])
+        ->where(['UserTransactions.transcation_identifier'=>'0'])->toArray();
+        // pr($userTransactions);die;
+        $this->set(compact('userData','userTransactions'));
+        $this->set('_serialize', ['userData']);
     }
     public function refunds()
     {
+        $this->loadModel('Users');
+        $userData = $this->Users->findById($this->Auth->user('id'))->first();
+        $this->loadModel('UserTransactions');
+        $userTransactions= $this->UserTransactions->findByUserId($this->Auth->user('id'))->contain(['UserEmailInvoices'])
+        ->where(['UserTransactions.transcation_identifier'=>'3'])->toArray();
+        // pr($userTransactions);die;
+        $this->set(compact('userData','userTransactions'));
+        $this->set('_serialize', ['userData']);
     }
     /**
      * View method
@@ -43,7 +75,7 @@ class PaymentsController extends AppController
     {
         $paymentsController = $this->PaymentsController->get($id, [
             'contain' => []
-        ]);
+            ]);
 
         $this->set('paymentsController', $paymentsController);
         $this->set('_serialize', ['paymentsController']);
@@ -81,7 +113,7 @@ class PaymentsController extends AppController
     {
         $paymentsController = $this->PaymentsController->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $paymentsController = $this->PaymentsController->patchEntity($paymentsController, $this->request->getData());
             if ($this->PaymentsController->save($paymentsController)) {

@@ -34,24 +34,19 @@ if($userData->user_business_basic_details){
 <div class="row">
   <div class="col">
     <ul class="nav nav-tabs">
-      <?php if(!$userData->user_address){?>
         <li class="nav-item">
           <a href="#" class="nav-link <?php echo ($activeTab == 'address')?'active':'';?>" data-toggle="tab" data-target="#default-tabs-0-1">Address</a>
         </li>
-        <?php }?>
-        <?php if(!$userProfile->is_individual && !($userData->user_business_basic_details && $userData->user_business_contact_details)){?>
+         <?php if( !$userProfile->is_individual ){?>
           <li class="nav-item">
             <a href="#" class="nav-link <?php echo ($activeTab == 'business')?'active':'';?>" data-toggle="tab" data-target="#default-tabs-0-2">Business</a>
           </li>
-          <?php }?>
-          <?php if(!$userData->business_bank_details){?>
+          <?php } ?> 
             <li class="nav-item">
               <a href="#" class="nav-link <?php echo ($activeTab == 'bank')?'active':'';?>" data-toggle="tab" data-target="#default-tabs-0-3">Bank</a>
             </li>
-            <?php }?>
           </ul>
           <div class="tab-content">
-            <?php if(!$userData->user_address){?>
               <div role="tabpanel" class="tab-pane <?php echo ($activeTab == 'address')?'active':'';?>" id="default-tabs-0-1">
                 <?= $this->Form->create(null,['url'=>$updateUserAddress,'enctype'=>"multipart/form-data"]); ?>
                 <div class="form-group row">
@@ -128,8 +123,7 @@ if($userData->user_business_basic_details){
                 </div>
               </form>
             </div>
-            <?php }?>
-            <?php if( !$userProfile->is_individual && !($userData->user_business_basic_details && $userData->user_business_contact_details)){?>
+            <?php if( !$userProfile->is_individual ){?>
               <div role="tabpanel" class="tab-pane <?php echo ($activeTab == 'business')?'active':'';?>" id="default-tabs-0-2">
                 <?= $this->Form->create(null,['url'=>$updateBusinessDetails,'enctype'=>"multipart/form-data"]); ?>
                 <div class="form-group row">
