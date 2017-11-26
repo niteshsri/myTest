@@ -40,7 +40,7 @@
                   <td><?= ($userTransaction->user_email_invoice->customer_email)?></td>
                   <td><?= ($userTransaction->user_email_invoice->customer_phone)?></td>
                   <td><?= ($userTransaction->user_email_invoice->amount)?></td>
-                  <td><?= ($userTransaction->user_email_invoice->transcation_identifier)?></td>
+                  <td><?= ($userTransaction->user_email_invoice->user_transaction_id)?></td>
                   <td><?= (!$userTransaction->status)?'completed':'pending' ?></td>
                   <td><?= ($userTransaction->created)?></td>
                   </tr>
