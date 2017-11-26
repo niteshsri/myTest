@@ -34,12 +34,12 @@ class CreateUserTransactions extends AbstractMigration
             'null' => false,
         ]);
         $table->addColumn('status', 'boolean', [
-            'default' => null,
-            'null' => false,
+            'default' => 1,
+            'null' => true,
         ]);
         $table->addColumn('is_deleted', 'boolean', [
-            'default' => null,
-            'null' => false,
+            'default' => 0,
+            'null' => true,
         ]);
         $table->addColumn('created', 'datetime', [
             'default' => null,

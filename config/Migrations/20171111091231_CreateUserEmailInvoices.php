@@ -23,7 +23,7 @@ class CreateUserEmailInvoices extends AbstractMigration
             'limit' => 255,
             'null' => false,
         ]);
-        $table->addColumn('transcation_identifier', 'string', [
+        $table->addColumn('user_transaction_id', 'integer', [
             'default' => null,
             'limit' => 255,
             'null' => true,

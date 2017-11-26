@@ -151,7 +151,7 @@ class UserTransactionsController extends AppController
         $userTransactionData = $this->userTransactions->newEntity($reqData);
         $userTransactionData = $this->userTransactions->patchEntity($userTransactionData,$reqData);
         if($this->userTransactions->save($userTransactionData)){
-             $this->userEmailInvoices->updateAll(['transcation_identifier'=>$userTransactionData->id,'status'=>0],['userEmailInvoices.uuid'=>$data['uuid']]);
+             $this->userEmailInvoices->updateAll(['user_transcation_id'=>$userTransactionData->id,'status'=>0],['userEmailInvoices.uuid'=>$data['uuid']]);
             pr('transaction success');die;
         }else{
 
