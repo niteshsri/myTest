@@ -38,7 +38,21 @@
                   <td><?= ($userTransaction->user_email_invoice->customer_phone)?></td>
                   <td><?= ($userTransaction->user_email_invoice->amount)?></td>
                   <td><?= ($userTransaction->user_email_invoice->user_transaction_id)?></td>
-                  <td><?= (!$userTransaction->status)?'completed':'pending' ?></td>
+                 <td><?php if($userTransaction->transcation_identifier == 0){
+                              // echo $userTransaction->transcation_identifier;
+                              echo 'Failed';
+                          }else if($userTransaction->transcation_identifier == 1){
+                              echo 'SuccessFul';
+                          }else if($userTransaction->transcation_identifier == 2){
+                              echo 'Pending';
+                          }else if($userTransaction->transcation_identifier == 3){
+                              echo 'Refund';  
+                          }else if($userTransaction->transcation_identifier == 4){
+                              echo 'Collection';
+                          }else{
+                            echo 'warning';
+                          }  
+                  ?></td>
                   <td><?= ($userTransaction->created)?></td>
                   </tr>
                   <?php } ?>

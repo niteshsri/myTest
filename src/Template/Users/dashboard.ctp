@@ -100,57 +100,68 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-12 col-xl-6">
-                        <div class="widget">
-                          <div class="row">
-                            <div class="col">
-                              <div class="dropdown pull-right">
-                                <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown">
-                                This month
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right from-right">
-                                  <a class="dropdown-item">This week</a>
-                                  <a class="dropdown-item">This month</a>
-                                  <a class="dropdown-item">This year</a>
-                                  <a class="dropdown-item">Today</a>
-                                </div>
-                              </div>
-                              <div class="title">Successful and Failed Transactions</div>
-                              <!-- <div class="description">Most important markets</div> -->
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <div id="lineChart"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+  <div class="col">
+    <div class="widget">
+      <div class="row">
+        <div class="col">
+          <div class="title">All Transactions</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <table id="invoices-list" class="table table-responsive table-hover table-striped table-bordered" style="width: 100%">
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Customer Name</th>
+                <th>Customer Email</th>
+                <th>Customer Phone</th>
+                <th>Amount</th>
+                <th>Transactions Id</th>
+                <th>Status</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($userTransactions as $key => $userTransaction) {?>
+                <tr>
+                  <td><?= ($key)?></td>
+                  <td><?= ($userTransaction->user_email_invoice->customer_name)?></td>
+                  <td><?= ($userTransaction->user_email_invoice->customer_email)?></td>
+                  <td><?= ($userTransaction->user_email_invoice->customer_phone)?></td>
+                  <td><?= ($userTransaction->user_email_invoice->amount)?></td>
+                  <td><?= ($userTransaction->user_email_invoice->user_transaction_id)?></td>
+                   <td><?php if($userTransaction->transcation_identifier == 0){
+                              // echo $userTransaction->transcation_identifier;
+                              echo 'Failed';
+                          }else if($userTransaction->transcation_identifier == 1){
+                              echo 'SuccessFul';
+                          }else if($userTransaction->transcation_identifier == 2){
+                              echo 'Pending';
+                          }else if($userTransaction->transcation_identifier == 3){
+                              echo 'Refund';  
+                          }else if($userTransaction->transcation_identifier == 4){
+                              echo 'Collection';
+                          }else{
+                            echo 'warning';
+                          }  
+                  ?></td>
+                  <td><?= ($userTransaction->created)?></td>
+                  </tr>
+                  <?php } ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('#invoices-list').DataTable({
+        responsive: true
+      });
+    })
+    </script>
 
-                      <?= $this->Html->script('c3/c3.min.js') ?>
-                      <?= $this->Html->script('d3/d3.min.js') ?>
-                      <script type="text/javascript">
-                      var chart = c3.generate({
-                        bindto: '#lineChart',
-                        data: {
-                          xs: {
-                            'Failed': 'x1',
-                            'Successful': 'x2',
-                          },
-                          colors: {
-                            'Failed': '#ff0000',
-                            'Successful': '#00ff00'
-                          },
-                          color: function (color, d) {
-                            // d will be 'id' when called for legends
-                            return color;
-                          },
-                          columns: [
-                            ['x1',  10, 30, 45, 50, 70, 100],
-                            ['x2', 30, 50, 75, 100, 120],
-                            ['Failed', 30, 200, 100, 400, 150, 250],
-                            ['Successful', 20, 180, 240, 100, 190]
-                          ]
-                        }
-                      });
-                      </script>
+

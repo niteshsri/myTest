@@ -47,7 +47,10 @@ class UsersController extends AppController
     $pendingTransations = $this->UserTransactions->findByUserId($this->Auth->user('id'))->where(['transcation_identifier'=>'2'])->sumOf('amount'); 
     $refundTransations = $this->UserTransactions->findByUserId($this->Auth->user('id'))->where(['transcation_identifier'=>'3'])->sumOf('amount'); 
     $collectionTransations = $this->UserTransactions->findByUserId($this->Auth->user('id'))->where(['transcation_identifier'=>'4'])->sumOf('amount');
-    $this->set(compact('userData','totalTransations','successfulTransations','failedTransations','pendingTransations','refundTransations','collectionTransations'));
+
+    $userTransactions= $this->UserTransactions->findByUserId($this->Auth->user('id'))->contain(['UserEmailInvoices'])->toArray();
+        // pr($userTransactions);die;
+    $this->set(compact('userData','totalTransations','successfulTransations','failedTransations','pendingTransations','refundTransations','collectionTransations','userTransactions'));
     $this->set('_serialize', ['userData']);
   }
 
@@ -92,7 +95,7 @@ class UsersController extends AppController
         $this->Flash->error(__('Kindly select valid Sign Up option.'));
         $isValidated = false;
       }else{
-          $data['is_individual'] = ($data['is_individual'] == 'Individual')?1:0;
+        $data['is_individual'] = ($data['is_individual'] == 'Individual')?1:0;
       }
 
       if($isValidated){
@@ -121,7 +124,7 @@ class UsersController extends AppController
   {
     $user = $this->Users->get($id, [
       'contain' => []
-    ]);
+      ]);
     if ($this->request->is(['patch', 'post', 'put'])) {
       $user = $this->Users->patchEntity($user, $this->request->getData());
       if ($this->Users->save($user)) {
@@ -167,10 +170,10 @@ class UsersController extends AppController
         $this->Auth->setUser($user);
         if(!($user['is_approved'])){
           $this->redirect(['controller' => 'Users',
-          'action' => 'index']);
+            'action' => 'index']);
         }else{
           $this->redirect(['controller' => 'Users',
-          'action' => 'dashboard']);
+            'action' => 'dashboard']);
         }
 
       }else{
@@ -301,7 +304,7 @@ class UsersController extends AppController
       $this->Flash->error(__('Invalid Request.'));
     }
     $this->redirect(['controller' => 'Users',
-    'action' => 'index']);
+      'action' => 'index']);
     return;
   }
   public function updateBusinessDetails()
@@ -409,7 +412,7 @@ class UsersController extends AppController
       $this->Flash->error(__('Invalid Request.'));
     }
     $this->redirect(['controller' => 'Users',
-    'action' => 'index']);
+      'action' => 'index']);
     return;
   }
   public function updateBusinessBankDetails()
@@ -483,7 +486,7 @@ class UsersController extends AppController
       $this->Flash->error(__('Invalid Request.'));
     }
     $this->redirect(['controller' => 'Users',
-    'action' => 'index']);
+      'action' => 'index']);
     return;
   }
 }
